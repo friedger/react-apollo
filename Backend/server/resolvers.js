@@ -1,5 +1,5 @@
-const { pubsub } = require("./utils");
-const { CHECKIN_ADDED } = require("./constants");
+const { pubsub } = require('./utils');
+const { CHECKIN_ADDED } = require('./constants');
 
 const queries = {
   Query: {
@@ -47,6 +47,13 @@ const queries = {
   }
 };
 
+const INTO_THE_VOID = (...args) => {
+  console.log(...args);
+  return {
+    'hello there': 'general Kenobi'
+  };
+};
+
 const mutations = {
   Mutation: {
     addFriend: (_, { id }, { dataSources: { dataAPI }, user }) =>
@@ -61,7 +68,7 @@ const mutations = {
       _,
       { beer, rating, text },
       { dataSources: { dataAPI }, user }
-    ) => (user ? dataAPI.createCheckin(beer, user, rating, text) : {})
+    ) => (user ? INTO_THE_VOID(beer, user, rating, text) : {})
   }
 };
 
