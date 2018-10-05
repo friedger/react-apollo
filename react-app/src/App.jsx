@@ -70,7 +70,8 @@ const App = compose(
         history: false,
       },
     },
-    skip: !localStorage.getItem('token'),
+    // Wait, do we actually want to skip that request every time?
+    skip: true,
   })
 )(_App)
 

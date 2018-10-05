@@ -16,7 +16,7 @@ export class CheckinsProvider extends PureComponent {
   render() {
     const { onlyBeers, limit, children } = this.props
     return (
-      <Query query={getLatestCheckIns} variables={{ onlyBeers, limit }}>
+      <Query query={getLatestCheckIns} variables={{ onlyBeers, limit: 6 }}>
         {({ subscribeToMore, loading, error, data: { checkins } }) => {
           const beers = loading ? [] : map(prop('beer'))(checkins)
           return (

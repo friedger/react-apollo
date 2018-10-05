@@ -21,25 +21,9 @@ const _UserFeedProvider = ({ limit, user, children }) => {
                 variables: {
                   onlyBeers: false,
                 },
-                updateQuery: (
-                  { userFeed: received },
-                  {
-                    subscriptionData: {
-                      data: { checkinAdded },
-                    },
-                  }
-                ) => {
-                  const {
-                    user: { id: checkId },
-                  } = checkinAdded
-                  const { friends, id: ownId } = user
-                  const inFriendList = [...friends, ownId].includes(checkId)
-                  // only update with own or friend's checkins
-                  return {
-                    userFeed: inFriendList
-                      ? [checkinAdded, ...received]
-                      : received,
-                  }
+
+                updateQuery: _ => {
+                  console.log('hello there')
                 },
               }),
           })

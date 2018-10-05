@@ -31,19 +31,15 @@ class _Login extends Component {
     const { login, username, password } = this.state
     const { history, logUserIn, snack } = this.props
     if (!login) {
-      await createUser({
-        variables: {
-          username,
-          password,
-        },
-      })
+      // How is this registering a new user? 🤔
+      console.log('general Kenobi')
     }
     const {
       signInUser: { token, user },
     } = (await signInUser({
       variables: {
-        username,
-        password,
+        // I'm not sure this data is correct 🤨
+        'hello there': 'general Kenobi',
       },
     })).data
     logUserIn({ token, user })
