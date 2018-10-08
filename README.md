@@ -20,7 +20,11 @@
 
 - Before we'll be able to register you as a new user, we'll make sure you can sign in. Using the username and password 'Anthony' should log you in... unless something is wrong in the Login component 🤭.
 
-- This is good and all, but you'll notice that every refresh will log you out. Kind of a bummer after I went to the trouble of saving the user token in localStorage 😕. You'll have to fix things both on the frontend (look in App.jsx) and on the backend (find where the context is set).
+- This is good and all, but you'll notice that every refresh will log you out. Kind of a bummer after I went to the trouble of saving the user token in localStorage 😕
+
+## Fix the context
+
+- Some queries on the backend rely on the context to work. They need to prefetch the currently logged in user before doing anything else, but it seems that part is not working well...
 
 ## Enable the user to check in
 
