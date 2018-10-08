@@ -1,18 +1,18 @@
-const { ApolloServer, AuthenticationError } = require("apollo-server");
-const jsonServer = require("json-server");
-const typeDefs = require("./schema");
-const resolvers = require("./resolvers");
-const { DataAPI } = require("./API");
+const { ApolloServer, AuthenticationError } = require('apollo-server');
+const jsonServer = require('json-server');
+const typeDefs = require('./schema');
+const resolvers = require('./resolvers');
+const { DataAPI } = require('./API');
 //const cors = require('cors')
-const { JWT } = require("./utils");
-const axios = require("axios");
-const { URL } = require("./constants");
-const { path } = require("ramda");
-const { makeExecutableSchema } = require("graphql-tools");
-const nodepath = require("path");
-const { createServer } = require("http");
-const { SubscriptionServer } = require("subscriptions-transport-ws");
-const { execute, subscribe } = require("graphql");
+const { JWT } = require('./utils');
+const axios = require('axios');
+const { URL } = require('./constants');
+const { path } = require('ramda');
+const { makeExecutableSchema } = require('graphql-tools');
+const nodepath = require('path');
+const { createServer } = require('http');
+const { SubscriptionServer } = require('subscriptions-transport-ws');
+const { execute, subscribe } = require('graphql');
 
 const dataAPI = new DataAPI();
 const PORT = 4000;
@@ -22,7 +22,7 @@ const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 // JSON server
 const DBServer = jsonServer.create();
-const router = jsonServer.router(nodepath.join(__dirname, "db.json"));
+const router = jsonServer.router(nodepath.join(__dirname, 'db.json'));
 const middlewares = jsonServer.defaults({ logger: false });
 DBServer.use(middlewares);
 DBServer.use(router);
@@ -35,18 +35,10 @@ const server = new ApolloServer({
   }),
   context: async ({ req }) => {
     // get the user token from the headers
-    const token = path(["headers", "authorization"], req);
-    let user;
-    if (token) {
-      try {
-        const { id } = JWT.decode(token);
-        user = (await axios.get(`${URL}/users/${id}`)).data;
-      } catch (e) {
-        return new AuthenticationError();
-      }
-    }
+    const token = path(['headers', 'authorization'], req);
+
     // add the user to the context
-    return { user };
+    return { user: { hello: 'General Kenobi' } };
   },
   subscriptions: false
 });
@@ -79,7 +71,7 @@ ws.listen({ port: WS_PORT }, () => {
     },
     {
       server: ws,
-      path: "/subscriptions"
+      path: '/subscriptions'
     }
   );
 });
