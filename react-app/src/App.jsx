@@ -28,9 +28,8 @@ class _App extends Component {
   }
 
   onFetch = user => {
-    const { logUserIn, snack, history } = this.props
+    const { logUserIn, snack } = this.props
     logUserIn({ user, token: localStorage.getItem('token') })
-    history.push('/feed')
     snack([greet(user.username), 'success'])
   }
 

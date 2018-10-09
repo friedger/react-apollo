@@ -37,7 +37,8 @@ const server = new ApolloServer({
     // get the user token from the headers
     const token = path(['headers', 'authorization'], req);
 
-    // add the user to the context
+    // TODO add the user to the context
+    // how would we go about converting the received token to a user?
     return { user: { hello: 'General Kenobi' } };
   },
   subscriptions: false
