@@ -5,10 +5,19 @@ import { Query } from 'react-apollo'
 import { connect } from 'react-redux'
 import { getUser } from '../../store'
 
+const propTypes = {
+  limit: PropTypes.number,
+}
+
+const defaultProps = {
+  limit: 18,
+}
+
 const _UserFeedProvider = ({ limit, user, children }) => {
   return (
     <Query query={getUserFeed} variables={{ limit }}>
-      {({ subscribeToMore, loading, error, data: { userFeed } }) => {
+      {({ subscribeToMore, loading, error, data }) => {
+        const userFeed = data && data.userFeed ? data.userFeed : {}
         return (
           !loading &&
           children({
@@ -33,14 +42,9 @@ const _UserFeedProvider = ({ limit, user, children }) => {
   )
 }
 
+_UserFeedProvider.propTypes = propTypes
+_UserFeedProvider.defaultProps = defaultProps
+
 export const UserFeedProvider = connect(state => ({
   user: getUser(state),
 }))(_UserFeedProvider)
-
-UserFeedProvider.propTypes = {
-  limit: PropTypes.number,
-}
-
-UserFeedProvider.defaultProps = {
-  limit: 18,
-}
