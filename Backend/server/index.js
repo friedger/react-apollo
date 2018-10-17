@@ -5,7 +5,6 @@ const resolvers = require("./resolvers");
 const { DataAPI } = require("./API");
 //const cors = require('cors')
 const { JWT } = require("./utils");
-const axios = require("axios");
 const { URL } = require("./constants");
 const { path } = require("ramda");
 const { makeExecutableSchema } = require("graphql-tools");
@@ -40,7 +39,7 @@ const server = new ApolloServer({
     if (token) {
       try {
         const { id } = JWT.decode(token);
-        user = (await axios.get(`${URL}/users/${id}`)).data;
+        user = dataApi.getUser(id);
       } catch (e) {
         return new AuthenticationError();
       }
